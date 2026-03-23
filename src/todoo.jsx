@@ -1,27 +1,41 @@
-import { useState } from "react"
+import { useState,useRef,useEffect } from "react"
 import "./Todoo.css"
+import { RiEditFill } from "react-icons/ri";
+import { MdDeleteForever } from "react-icons/md";
+import { IoCloudDoneSharp } from "react-icons/io5";
+
 
 export const Todoo = () => {
     const heros = [{
         id: 1,
-        name: "superMan"
+        name: "superMan",
+        status:false
     },
     {
         id: 2,
-        name: "Batman"
+        name: "Batman",
+        status:false
     },
     {
         id: 3,
-        name: "Ironman"
+        name: "Ironman",
+        status:false
     }]
 
     const [input, setInput] = useState("")
     const [list, setList] = useState(heros)
 
+    const inputref = useRef(null)
+
+    useEffect(()=>{
+        inputref.current.focus()
+    },[])
+
     function submitHandle() {
         setList([...list, {
             id: list.length + 1,
-            name: input
+            name: input,
+            status:false
         }])
         setInput("")
     }
@@ -30,10 +44,26 @@ export const Todoo = () => {
         setList(prev => prev.filter(item => id != item.id))
     }
 
-    const listItems = list.map((items, index) => (
+    function updateMethod(name,id){
+        inputref.current.value = name
+    }
+
+    function allDone(id){
+   setList(prev => prev.map((item) => {
+    if(item.id === id){
+        return { ...item, status: !item.status } 
+    }
+    return item  
+}))
+    }
+
+    const listItems = list.map((items) => (
         <li key={items.id} className="list-item">
-            <span className="item-name">{items.name}</span>
-            <button className="delete-btn" onClick={() => handle(items.id)}>delete</button>
+            <span className={items.status?"alldone-name":"item-name"} >{items.name}</span>
+            <button className= "delete-btn" onClick={() => allDone(items.id)} ><IoCloudDoneSharp /></button>
+            <button className="delete-btn" onClick={() => updateMethod(items.name,items.id)}><RiEditFill /></button>
+            <button className="delete-btn" onClick={() => handle(items.id)}><MdDeleteForever /></button>
+           
         </li>
     ))
 
@@ -44,7 +74,7 @@ export const Todoo = () => {
                     <h1 className="title">TODO</h1>
                     <p className="subtitle">things to do</p>
                     <form className="form" onSubmit={(e) => { e.preventDefault(); submitHandle(); }}>
-                        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+                        <input type="text" ref={inputref} value={input} onChange={(e) => setInput(e.target.value)} />
                         <input type="submit" value="ADD" />
                     </form>
                     <p className="count">Total: <span>{list.length}</span></p>

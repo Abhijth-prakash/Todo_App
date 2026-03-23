@@ -130,6 +130,17 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+.alldone-name {
+  flex: 1;
+  font-size: 13px;
+  color: #e0e0e0;
+  background-color: #389503;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: line-through;
+}
+
+
 
 .delete-btn {
   background: transparent;
@@ -158,3 +169,4 @@ body {
   text-transform: uppercase;
   padding: 40px 0;
 }
+
