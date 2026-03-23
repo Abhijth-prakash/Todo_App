@@ -6,21 +6,8 @@ import { IoCloudDoneSharp } from "react-icons/io5";
 
 
 export const Todoo = () => {
-    const heros = [{
-        id: 1,
-        name: "superMan",
-        status:false
-    },
-    {
-        id: 2,
-        name: "Batman",
-        status:false
-    },
-    {
-        id: 3,
-        name: "Ironman",
-        status:false
-    }]
+    const heros = [
+]
 
     const [input, setInput] = useState("")
     const [list, setList] = useState(heros)
@@ -33,12 +20,26 @@ export const Todoo = () => {
     },[])
 
     function submitHandle() {
-        setList([...list, {
+        if(input !==""){
+            setList([...list, {
             id: list.length + 1,
             name: input,
             status:false
         }])
         setInput("")
+        }
+    
+        if(editid){
+            const Taskid = list.find(item=> editid == item.id)
+           const updated = list.map(item=> item.id ==  Taskid.id
+            ?(item={id:item.id,name:input,status:false}):
+            (item ={id:item.id,name:item.name,status:false})
+           )
+           setList(updated)
+           setEditid()
+            
+        }
+
     }
 
     function handle(id) {
@@ -47,17 +48,7 @@ export const Todoo = () => {
 
     function updateMethod(name,id){
         setInput(name)
-        const editTask =  list.find(item=> id == item.id)
-        setEditid(editTask.id)
-
-        console.log(editid)
-        setList(prev => prev.map((item) => {
-        if(item.id === editid){
-        return { ...item, name:input } 
-    }
-    return item  
-}))
-        
+        setEditid(id)    
     }
 
     function allDone(id){
