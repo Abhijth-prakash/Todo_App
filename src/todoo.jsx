@@ -24,6 +24,7 @@ export const Todoo = () => {
 
     const [input, setInput] = useState("")
     const [list, setList] = useState(heros)
+    const [editid,setEditid] = useState(0)
 
     const inputref = useRef(null)
 
@@ -45,7 +46,18 @@ export const Todoo = () => {
     }
 
     function updateMethod(name,id){
-        inputref.current.value = name
+        setInput(name)
+        const editTask =  list.find(item=> id == item.id)
+        setEditid(editTask.id)
+
+        console.log(editid)
+        setList(prev => prev.map((item) => {
+        if(item.id === editid){
+        return { ...item, name:input } 
+    }
+    return item  
+}))
+        
     }
 
     function allDone(id){
@@ -63,7 +75,6 @@ export const Todoo = () => {
             <button className= "delete-btn" onClick={() => allDone(items.id)} ><IoCloudDoneSharp /></button>
             <button className="delete-btn" onClick={() => updateMethod(items.name,items.id)}><RiEditFill /></button>
             <button className="delete-btn" onClick={() => handle(items.id)}><MdDeleteForever /></button>
-           
         </li>
     ))
 
@@ -75,7 +86,7 @@ export const Todoo = () => {
                     <p className="subtitle">things to do</p>
                     <form className="form" onSubmit={(e) => { e.preventDefault(); submitHandle(); }}>
                         <input type="text" ref={inputref} value={input} onChange={(e) => setInput(e.target.value)} />
-                        <input type="submit" value="ADD" />
+                        <button className="add-btn">{editid ? 'UPDATE' : "ADD"}</button>
                     </form>
                     <p className="count">Total: <span>{list.length}</span></p>
                     {list.length === 0

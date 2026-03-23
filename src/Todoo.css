@@ -140,8 +140,6 @@ body {
   text-decoration: line-through;
 }
 
-
-
 .delete-btn {
   background: transparent;
   border: 1px solid #2a2a2a;
@@ -168,5 +166,25 @@ body {
   letter-spacing: 3px;
   text-transform: uppercase;
   padding: 40px 0;
+}
+
+.add-btn {
+  background: #f0e000;
+  border: none;
+  padding: 14px 20px;
+  color: #0e0e0e;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: #fff700;
+}
+
+.add-btn:active {
+  transform: scale(0.97);
 }
 
