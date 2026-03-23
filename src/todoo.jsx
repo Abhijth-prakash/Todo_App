@@ -4,18 +4,38 @@ import { RiEditFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import { IoCloudDoneSharp } from "react-icons/io5";
 
+
+
 export const Todoo = () => {
 
+    //states
     const [input, setInput] = useState("")
-    const [list, setList] = useState([])
+
+    //id for editing state
     const [editid, setEditid] = useState(0)
 
+
+    //list state, loading the intial list from local storage
+    const [list, setList] = useState(()=>{
+    const stored = localStorage.getItem("list")
+    return stored ? JSON.parse(stored) : []
+})
+    
+    //using ref
     const inputref = useRef(null)
 
+    //use effect for focusing on input box,rendering only on mounting
     useEffect(() => {
         inputref.current.focus()
     }, [])
 
+    //stores data into localstorage everytime list renders
+    useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(list))
+}, [list])
+
+
+    //function for handling the form
     function submitHandle() {
         if (editid) {
             const updated = list.map(item =>
@@ -37,15 +57,18 @@ export const Todoo = () => {
         }
     }
 
+    //deleting function
     function handle(id) {
         setList(prev => prev.filter(item => id != item.id))
     }
 
+    //updating function
     function updateMethod(name, id) {
         setInput(name)
         setEditid(id)
     }
 
+    //alldone function
     function allDone(id) {
         setList(prev => prev.map((item) => {
             if (item.id === id) {
@@ -55,6 +78,8 @@ export const Todoo = () => {
         }))
     }
 
+
+    //maping the list for rendering 
     const listItems = list.map((items) => (
         <li key={items.id} className="list-item">
             <span className={items.status ? "alldone-name" : "item-name"}>{items.name}</span>
@@ -64,6 +89,8 @@ export const Todoo = () => {
         </li>
     ))
 
+
+    //returning jsx
     return (
         <>
             <div className="wrapper">
