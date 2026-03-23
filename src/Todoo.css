@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0e0e0e;
+  font-family: 'DM Mono', monospace;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: #f0e000;
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  border: 1px solid #2a2a2a;
+  margin-bottom: 40px;
+}
+
+.form input[type="text"] {
+  flex: 1;
+  background: #161616;
+  border: none;
+  outline: none;
+  padding: 14px 18px;
+  color: #f0f0f0;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.form input[type="text"]::placeholder {
+  color: #333;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.form input[type="submit"] {
+  background: #f0e000;
+  border: none;
+  padding: 14px 20px;
+  color: #0e0e0e;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.form input[type="submit"]:hover {
+  background: #fff700;
+}
+
+.count {
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.count span {
+  color: #f0e000;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #161616;
+  padding: 16px 18px;
+  border-left: 3px solid #f0e000;
+  transition: background 0.2s;
+}
+
+.list-item:hover {
+  background: #1c1c1c;
+}
+
+.item-number {
+  font-size: 10px;
+  color: #f0e000;
+  letter-spacing: 2px;
+  margin-right: 14px;
+  opacity: 0.6;
+}
+
+.item-name {
+  flex: 1;
+  font-size: 13px;
+  color: #e0e0e0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.delete-btn {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  color: #444;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  border-color: #ff3c3c;
+  color: #ff3c3c;
+  background: #1f0000;
+}
+
+.empty {
+  text-align: center;
+  color: #2a2a2a;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 40px 0;
+}
