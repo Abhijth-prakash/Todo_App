@@ -1,4 +1,3 @@
-import './App.css'
 import { Todoo } from './todoo'
 
 function App() {
