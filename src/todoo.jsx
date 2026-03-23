@@ -1,70 +1,65 @@
-import { useState,useRef,useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import "./Todoo.css"
 import { RiEditFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import { IoCloudDoneSharp } from "react-icons/io5";
 
-
 export const Todoo = () => {
-    const heros = [
-]
 
     const [input, setInput] = useState("")
-    const [list, setList] = useState(heros)
-    const [editid,setEditid] = useState(0)
+    const [list, setList] = useState([])
+    const [editid, setEditid] = useState(0)
 
     const inputref = useRef(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         inputref.current.focus()
-    },[])
+    }, [])
 
     function submitHandle() {
-        if(input !==""){
-            setList([...list, {
-            id: list.length + 1,
-            name: input,
-            status:false
-        }])
-        setInput("")
+        if (editid) {
+            const updated = list.map(item =>
+                item.id == editid
+                    ? { ...item, name: input }
+                    : item
+            )
+            setList(updated)
+            setEditid(0)
+            setInput("")
+        } else if (input !== "") {
+            const newList = [...list, {
+                id: list.length + 1,
+                name: input,
+                status: false
+            }]
+            setList(newList)
+            setInput("")
         }
-    
-        if(editid){
-            const Taskid = list.find(item=> editid == item.id)
-           const updated = list.map(item=> item.id ==  Taskid.id
-            ?(item={id:item.id,name:input,status:false}):
-            (item ={id:item.id,name:item.name,status:false})
-           )
-           setList(updated)
-           setEditid()
-            
-        }
-
     }
 
     function handle(id) {
         setList(prev => prev.filter(item => id != item.id))
     }
 
-    function updateMethod(name,id){
+    function updateMethod(name, id) {
         setInput(name)
-        setEditid(id)    
+        setEditid(id)
     }
 
-    function allDone(id){
-   setList(prev => prev.map((item) => {
-    if(item.id === id){
-        return { ...item, status: !item.status } 
-    }
-    return item  
-}))
+    function allDone(id) {
+        setList(prev => prev.map((item) => {
+            if (item.id === id) {
+                return { ...item, status: !item.status }
+            }
+            return item
+        }))
     }
 
     const listItems = list.map((items) => (
         <li key={items.id} className="list-item">
-            <span className={items.status?"alldone-name":"item-name"} >{items.name}</span>
-            <button className= "delete-btn" onClick={() => allDone(items.id)} ><IoCloudDoneSharp /></button>
-            <button className="delete-btn" onClick={() => updateMethod(items.name,items.id)}><RiEditFill /></button>
+            <span className={items.status ? "alldone-name" : "item-name"}>{items.name}</span>
+            <button className="delete-btn" onClick={() => allDone(items.id)}><IoCloudDoneSharp /></button>
+            <button className="delete-btn" onClick={() => updateMethod(items.name, items.id)}><RiEditFill /></button>
             <button className="delete-btn" onClick={() => handle(items.id)}><MdDeleteForever /></button>
         </li>
     ))
